@@ -13,13 +13,7 @@ int main(){
     s = new sorter("/");
     cout << s->toString();
 
-    s = new sorter(9.0);
-    cout << s->toString();
-
     s = new sorter(2.0, 1.0);
-    cout << s->toString();
-
-    s = new sorter("/test/", 3.0);
     cout << s->toString();
 
      s = new sorter("/test/", 0.1, 0.3);
