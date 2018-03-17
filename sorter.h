@@ -28,9 +28,11 @@ class sorter{
         double getMinAspectRatio();
         void setMaxAR(double minAR); 
         double getMaxAspectRatio();
+        //to string! prints all the infos in a nice format
+        string toString();
     private:
         string searchingPath = "~/Pictures/"; //default searching path
-        string outputFolder = "~/Pictures/AspectSort/"; //the beginning of the end lmao
+        string outputPath = "~/Pictures/AspectSort/"; //the beginning of the end lmao
         double minAspectRatio = 1.3; //Default minimum aspect ratio
         double maxAspectRatio = 1.8; //Default maximum aspect ratio
 };
