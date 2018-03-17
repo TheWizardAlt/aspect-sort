@@ -12,9 +12,9 @@ int main(){
     getline(cin, inputPath);
 
     s = new sorter(inputPath, 0.1, 0.3);
-    
+
     cout << s->toString();
     s->findImages();
-    s->toString();
+    cout << s->toString();
     return 0;
 }

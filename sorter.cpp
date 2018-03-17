@@ -45,7 +45,6 @@ vector<string> sorter::findImages(bool showInfo){
         } //you could also peek the bytes, this is much faster though
         checkedCount++;
     }
-    system("clear"); //TODO: Make protable
     totalImagePaths = imagePaths.size();
     if(showInfo) cout << "Found " << totalImagePaths << " images!" << endl;
     return imagePaths;
