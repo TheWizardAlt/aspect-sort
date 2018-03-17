@@ -1,10 +1,10 @@
 #include "sorter.h"
 
-sorter::sorter(){ }
-sorter::sorter(string folderPath){sorter(folderPath, minAspectRatio, maxAspectRatio);}
-sorter::sorter(double minAR){sorter(searchingPath, minAR, maxAspectRatio);}
-sorter::sorter(double minAR, double maxAR){sorter(searchingPath, minAR, maxAR);}
-sorter::sorter(string folderPath, double minAR){sorter(folderPath, minAR, maxAspectRatio);}
+sorter::sorter():sorter(getSearchPath(), getMinAspectRatio(), getMaxAspectRatio()){}
+sorter::sorter(string folderPath):sorter(folderPath, getMinAspectRatio(), getMaxAspectRatio()){}
+sorter::sorter(double minAR):sorter(searchingPath, minAR, getMaxAspectRatio()){}
+sorter::sorter(double minAR, double maxAR):sorter(searchingPath, minAR, maxAR){}
+sorter::sorter(string folderPath, double minAR):sorter(folderPath, minAR, getMaxAspectRatio()){}
 sorter::sorter(string folderPath, double minAR, double maxAR){
     setSearchPath(folderPath);
     setMinAR(minAR);
@@ -28,7 +28,7 @@ string sorter::toString(){
     ss << "Current output folder: " << getOutputPath() << endl;
     ss << "Current minAR: " << getMinAspectRatio() << ":1" << endl;
     ss << "Current mazAR: " << getMaxAspectRatio() << ":1" << endl;
-    
+
     ss << endl;
     s = ss.str();
     ss.clear();
