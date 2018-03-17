@@ -17,9 +17,7 @@ class sorter{
         //constructors!
         sorter();
         sorter(string folderPath);
-        sorter(double minAR);
         sorter(double minAR, double maxAR);
-        sorter(string folderPath, double minAR);
         sorter(string folderPath, double minAR, double maxAR);
         //gets and sets!
         void setSearchPath(string path);
