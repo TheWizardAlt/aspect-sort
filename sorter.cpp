@@ -1,10 +1,10 @@
 #include "sorter.h"
 
-sorter::sorter():sorter(getSearchPath(), getMinAspectRatio(), getMaxAspectRatio()){}
-sorter::sorter(string folderPath):sorter(folderPath, getMinAspectRatio(), getMaxAspectRatio()){}
-sorter::sorter(double minAR):sorter(searchingPath, minAR, getMaxAspectRatio()){}
-sorter::sorter(double minAR, double maxAR):sorter(searchingPath, minAR, maxAR){}
-sorter::sorter(string folderPath, double minAR):sorter(folderPath, minAR, getMaxAspectRatio()){}
+sorter::sorter():sorter("~/Pictures/", 1.3, 1.8){ }
+sorter::sorter(string folderPath):sorter(folderPath, 1.3, 1.8){}
+sorter::sorter(double minAR):sorter("~/Pictures/", minAR, 1.8){}
+sorter::sorter(double minAR, double maxAR):sorter("~/Pictures/", minAR, maxAR){}
+sorter::sorter(string folderPath, double minAR):sorter(folderPath, minAR, 1.8){}
 sorter::sorter(string folderPath, double minAR, double maxAR){
     setSearchPath(folderPath);
     setMinAR(minAR);
