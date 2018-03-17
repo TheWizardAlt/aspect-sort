@@ -1,8 +1,8 @@
 #include "sorter.h"
 
-sorter::sorter():sorter("~/Pictures/"){ }
+sorter::sorter():sorter(""){ } //NOTE you may wanna change this default path here
 sorter::sorter(string folderPath):sorter(folderPath, 1.3, 1.8){}
-sorter::sorter(double minAR, double maxAR):sorter("~/Pictures/", minAR, maxAR){}
+sorter::sorter(double minAR, double maxAR):sorter("/home/", minAR, maxAR){} //NOTE you may wanna change this default path here
 sorter::sorter(string folderPath, double minAR, double maxAR){
     setSearchPath(folderPath);
     setMinAR(minAR);
@@ -17,10 +17,12 @@ void sorter::setMinAR(double minAR){ minAspectRatio = minAR; }
 double sorter::getMinAspectRatio(){ return minAspectRatio; }
 void sorter::setMaxAR(double maxAR){ maxAspectRatio = maxAR; }
 double sorter::getMaxAspectRatio(){ return maxAspectRatio; }
+int sorter::getTotalImagePaths(){ return totalImagePaths; }
 
 vector<string> sorter::findImages(bool showInfo){
     //clear vector of previous runs (just in case)
     imagePaths.clear();
+    totalImagePaths = 0;
     //search directories recursively
     //TODO: add a non recursive flag
     int checkedCount = 0; //keep track of how many files checked
@@ -44,6 +46,8 @@ vector<string> sorter::findImages(bool showInfo){
         checkedCount++;
     }
     system("clear"); //TODO: Make protable
+    totalImagePaths = imagePaths.size();
+    if(showInfo) cout << "Found " << totalImagePaths << " images!" << endl;
     return imagePaths;
 }
 
@@ -55,6 +59,7 @@ string sorter::toString(){
     ss << "Current output folder: " << getOutputPath() << endl;
     ss << "Current minAR: " << getMinAspectRatio() << ":1" << endl;
     ss << "Current mazAR: " << getMaxAspectRatio() << ":1" << endl;
+    ss << "Total Image Paths: " << getTotalImagePaths() << endl;
 
     ss << endl;
     s = ss.str();

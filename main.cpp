@@ -8,16 +8,13 @@ int main(){
     //TODO: functional main (all code below is temporary/testing)
     sorter *s = new sorter();
 
-    cout << s->toString();
+    string inputPath = "";
+    getline(cin, inputPath);
 
-    s = new sorter("/");
+    s = new sorter(inputPath, 0.1, 0.3);
+    
     cout << s->toString();
-
-    s = new sorter(2.0, 1.0);
-    cout << s->toString();
-
-     s = new sorter("/test/", 0.1, 0.3);
-    cout << s->toString();
-
+    s->findImages();
+    s->toString();
     return 0;
 }

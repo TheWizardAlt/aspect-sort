@@ -28,6 +28,7 @@ class sorter{
         double getMinAspectRatio();
         void setMaxAR(double minAR); 
         double getMaxAspectRatio();
+        int getTotalImagePaths();
         //to string! prints all the infos in a nice format
         string toString();
         //the meat and the potatoes of functions
@@ -38,4 +39,5 @@ class sorter{
         double minAspectRatio; //Default minimum aspect ratio
         double maxAspectRatio; //Default maximum aspect ratio
         vector<string> imagePaths;
+        int totalImagePaths = 0;
 };
