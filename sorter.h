@@ -22,8 +22,10 @@ class sorter{
         sorter(string folderPath, double minAR);
         sorter(string folderPath, double minAR, double maxAR);
         //gets and sets!
-        void setPath(string path);
-        string getPath(); 
+        void setSearchPath(string path);
+        string getSearchPath();
+        void setOutputPath(string path);
+        string getOutputPath(); 
         void setMinAR(double minAR);
         double getMinAspectRatio();
         void setMaxAR(double minAR); 
