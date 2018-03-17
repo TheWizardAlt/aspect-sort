@@ -2,18 +2,10 @@
 
 sorter::sorter(){ }
 
-sorter::sorter(string folderPath){ 
-    sorter(folderPath, minAspectRatio, maxAspectRatio);
-}
-sorter::sorter(double minAR){
-    sorter(searchingPath, minAR, maxAspectRatio);
-}
-sorter::sorter(double minAR, double maxAR){
-    sorter(searchingPath, minAR, maxAR);
-}
-sorter::sorter(string folderPath, double minAR){
-    sorter(folderPath, minAR, maxAspectRatio);
-}
+sorter::sorter(string folderPath){sorter(folderPath, minAspectRatio, maxAspectRatio);}
+sorter::sorter(double minAR){sorter(searchingPath, minAR, maxAspectRatio);}
+sorter::sorter(double minAR, double maxAR){sorter(searchingPath, minAR, maxAR);}
+sorter::sorter(string folderPath, double minAR){sorter(folderPath, minAR, maxAspectRatio);}
 sorter::sorter(string folderPath, double minAR, double maxAR){
     setPath(folderPath);
     setMinAR(minAR);
