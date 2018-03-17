@@ -30,9 +30,12 @@ class sorter{
         double getMaxAspectRatio();
         //to string! prints all the infos in a nice format
         string toString();
+        //the meat and the potatoes of functions
+        vector<string> findImages(bool showInfo = false);
     private:
-        string searchingPath = "~/Pictures/"; //default searching path
+        string searchingPath; //default searching path
         string outputPath = "~/Pictures/AspectSort/"; //the beginning of the end lmao
-        double minAspectRatio = 1.3; //Default minimum aspect ratio
-        double maxAspectRatio = 1.8; //Default maximum aspect ratio
+        double minAspectRatio; //Default minimum aspect ratio
+        double maxAspectRatio; //Default maximum aspect ratio
+        vector<string> imagePaths;
 };
