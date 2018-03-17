@@ -36,13 +36,14 @@ vector<string> sorter::findImages(bool showInfo){
                 //remove the "" from the path (The path is converted to something like "/path/to/file/file.ext")
                 curPath.erase(remove(curPath.begin(),curPath.end(),'"'),curPath.end());
                 imagePaths.push_back(curPath);
-                if(showInfo) system("clear");
+                if(showInfo) system("clear"); //TODO: Make protable
                 if(showInfo) cout << "Searching Files: " << imagePaths.size() << "/" << checkedCount << " : " << curPath << endl;
                 break; //bad code but leave the for loop
             }
         } //you could also peek the bytes, this is much faster though
         checkedCount++;
     }
+    system("clear"); //TODO: Make protable
     return imagePaths;
 }
 
