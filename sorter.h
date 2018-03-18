@@ -33,6 +33,7 @@ class sorter{
         string toString();
         //the meat and the potatoes of functions
         vector<string> findImages(bool showInfo = false); //Note: setting this to true signifigantly slows it down....
+        
     private:
         string searchingPath; //default searching path
         string outputPath = "~/Pictures/AspectSort/"; //the beginning of the end lmao

@@ -33,3 +33,7 @@
 
 #vscode folder
 .vscode
+
+#images and the eventual database
+images
+.csv
