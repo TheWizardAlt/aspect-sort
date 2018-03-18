@@ -18,6 +18,7 @@ double sorter::getMinAspectRatio(){ return minAspectRatio; }
 void sorter::setMaxAR(double maxAR){ maxAspectRatio = maxAR; }
 double sorter::getMaxAspectRatio(){ return maxAspectRatio; }
 int sorter::getTotalImagePaths(){ return totalImagePaths; }
+int sorter::getTotalCreated(){ return sysLinksCreated; }
 
 vector<string> sorter::findImages(bool showInfo){
     //clear of previous runs (just in case)
@@ -66,6 +67,16 @@ void sorter::aspectSort(bool showInfo){
     sort(imageDatabase.begin(), imageDatabase.end());
     sort(imagePaths.begin(),imagePaths.end());
     //TODO: remove entries that are not in the imagepaths from the imagedatabase
+
+    //load bar stuff TODO: refine this a bit :p
+    int newCount = 0;
+    int oldCount = 0;
+    int progressCount = 0;
+    int outOf = imagePaths.size();
+    int oldBar = 0;
+    int updateCount = 0;
+    int updater = -1;
+
     for(string imagePath : imagePaths){
         //check to make sure theres even a point
         if(minAspectRatio > maxAspectRatio){ cout << "Min aspect was bigger then max ascpect?" << endl; break;}
@@ -77,12 +88,41 @@ void sorter::aspectSort(bool showInfo){
             if(!fileExist){
                 fs::create_directory_symlink(imagePath, sysLinkPath);
                 if(showInfo) cout << "Created link: " << sysLinkPath << endl;
+                sysLinksCreated++;
             }else{
                 if(showInfo) cout << "Didn't create link: " << sysLinkPath << endl;
             }
 
         }else{
             if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
+        }
+        progressCount++;
+        bool showProgress = true;
+        double progress = 0.0;
+        if(showProgress){
+            updater++;
+            progress = ((double)progressCount / outOf);
+            int barSize = 34;
+            if(outOf < barSize)
+                barSize = outOf;
+            int newBar = progressCount / (outOf / barSize);
+            if(updater == 0 || updater > 1000 || newBar > oldBar || progress == 1){
+                updater = 1;
+                system("clear");
+                oldBar = newBar;
+                cout << "[";
+                int curBarSize = (progress * barSize);
+                cout << string(curBarSize, '.');
+                cout << string(barSize - curBarSize, ' ');
+                cout << "] ";
+                cout << (int)(progress * 100) << "% " << endl;
+                updateCount++;
+                //time(&end);
+                //double diff = difftime(end,begin);
+                //cout << "List size: " << oldData.size() << endl;
+                cout << "File stat: " << progressCount << "/" << outOf << /*" Time Ellapsed: " << diff << "s" <<*/ endl << endl;
+                
+            }
         }
     }
 
@@ -141,14 +181,9 @@ string sorter::toString(){
     ss << "Current minAR: " << getMinAspectRatio() << ":1" << endl;
     ss << "Current mazAR: " << getMaxAspectRatio() << ":1" << endl;
     ss << "Total Image Paths: " << getTotalImagePaths() << endl;
-
+    ss << "Sys links creates: " << getTotalCreated() << endl;
     ss << endl;
     s = ss.str();
     ss.clear();
     return s;
-}
-
-bool sorter::fileExists(const char *fileName){
-    ifstream infile(fileName);
-    return infile.good();
 }

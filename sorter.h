@@ -29,6 +29,7 @@ class sorter{
         void setMaxAR(double minAR); 
         double getMaxAspectRatio();
         int getTotalImagePaths();
+        int getTotalCreated();
         //to string! prints all the infos in a nice format
         string toString();
         //the meat and the potatoes of functions
@@ -45,5 +46,5 @@ class sorter{
         string databasePath = "d.csv";
         vector<string> imageDatabase;
         double getImageAspect(string imagePath);
-        bool fileExists(const char *filename);
+        int sysLinksCreated = 0;
 };
