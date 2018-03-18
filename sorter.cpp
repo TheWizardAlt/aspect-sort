@@ -49,6 +49,7 @@ vector<string> sorter::findImages(bool showInfo){
     if(showInfo) cout << "Found " << totalImagePaths << " images!" << endl;
     return imagePaths;
 }
+
 vector<string> sorter::loadImageDatabase(string databasePath){
     ifstream databaseStream;
     databaseStream.open(databasePath, ifstream::in);
@@ -59,9 +60,37 @@ vector<string> sorter::loadImageDatabase(string databasePath){
     databaseStream.close();
     return imageDatabase;
 }
+
 void sorter::aspectSort(bool showInfo){
+    //begin by sorting both vectors so it is easier to read from them
+    sort(imageDatabase.begin(), imageDatabase.end());
+    sort(imagePaths.begin(),imagePaths.end());
+    //TODO: remove entries that are not in the imagepaths from the imagedatabase
+    for(string imagePath : imagePaths){
+        //check to make sure theres even a point
+        if(minAspectRatio > maxAspectRatio) cout << "Min aspect was bigger then max ascpect?";
+        double imageAspect = getImageAspect(imagePath);
+    }
 
 }
+
+double sorter::getImageAspect(string imagePath){
+    //quickly check the database to see if we already know the aspect
+    //there can DEFINETLY be some optimizations to this...
+    for(int i = 0; i < imageDatabase.size(); i++){
+        string currentImagePath = imageDatabase[i];
+        if(currentImagePath.find(imagePath,0) != -1){
+            double savedAspect;
+            //the values are stored like "path,value"
+            string s = currentImagePath.substr(currentImagePath.find(',')+1);
+            stringstream ss(s); //convert the number to a string stream
+            ss >> savedAspect; //convert the string stream to a double
+            imageDatabase.erase(imageDatabase.begin()+i); //remove current item to make future searches quicker
+            return savedAspect;
+        }
+    }
+}
+
 string sorter::toString(){
     stringstream ss;
     string s;

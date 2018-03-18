@@ -33,7 +33,7 @@ class sorter{
         string toString();
         //the meat and the potatoes of functions
         vector<string> findImages(bool showInfo = false); //Note: setting this to true signifigantly slows it down....
-        vector<string> loadImageDatabase(string databaseName = "Database.csv");
+        vector<string> loadImageDatabase(string databasePath = "Database.csv");
         void aspectSort(bool showInfo = false);
     private:
         string searchingPath; //default searching path
