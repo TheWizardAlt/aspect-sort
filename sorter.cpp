@@ -49,7 +49,19 @@ vector<string> sorter::findImages(bool showInfo){
     if(showInfo) cout << "Found " << totalImagePaths << " images!" << endl;
     return imagePaths;
 }
+vector<string> sorter::loadImageDatabase(string databasePath){
+    ifstream databaseStream;
+    databaseStream.open(databasePath, ifstream::in);
+    string entry = "";
+    if(!databaseStream.fail())
+        while(getline(databaseStream, entry))
+            imageDatabase.push_back(entry);
+    databaseStream.close();
+    return imageDatabase;
+}
+void sorter::aspectSort(bool showInfo){
 
+}
 string sorter::toString(){
     stringstream ss;
     string s;
