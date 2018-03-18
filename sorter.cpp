@@ -73,12 +73,14 @@ void sorter::aspectSort(bool showInfo){
         if(imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio){
             string imageName = basename((char*)imagePath.c_str());
             string sysLinkPath = outputPath + imageName;
-            if(!fileExists(sysLinkPath.c_str())){
+            bool fileExist = fs::exists(sysLinkPath);
+            if(!fileExist){
                 fs::create_directory_symlink(imagePath, sysLinkPath);
                 if(showInfo) cout << "Created link: " << sysLinkPath << endl;
             }else{
                 if(showInfo) cout << "Didn't create link: " << sysLinkPath << endl;
             }
+
         }else{
             if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
         }
