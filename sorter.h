@@ -45,4 +45,5 @@ class sorter{
         string databasePath = "d.csv";
         vector<string> imageDatabase;
         double getImageAspect(string imagePath);
+        bool fileExists(const char *filename);
 };

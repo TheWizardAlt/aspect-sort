@@ -8,7 +8,7 @@ int main(){
     //TODO: functional main (all code below is temporary/testing)
     sorter *s = new sorter();
 
-    s = new sorter("./images", 0.1, 0.3);
+    s = new sorter("./images", 0, 1);
 
     cout << s->toString();
     s->findImages();

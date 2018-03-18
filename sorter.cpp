@@ -68,15 +68,19 @@ void sorter::aspectSort(bool showInfo){
     //TODO: remove entries that are not in the imagepaths from the imagedatabase
     for(string imagePath : imagePaths){
         //check to make sure theres even a point
-        if(minAspectRatio > maxAspectRatio) cout << "Min aspect was bigger then max ascpect?";
+        if(minAspectRatio > maxAspectRatio){ cout << "Min aspect was bigger then max ascpect?" << endl; break;}
         double imageAspect = getImageAspect(imagePath);
         if(imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio){
             string imageName = basename((char*)imagePath.c_str());
             string sysLinkPath = outputPath + imageName;
-            ifstream infile(sysLinkPath); //check if it exists
-            if(!infile.good()){
+            if(!fileExists(sysLinkPath.c_str())){
                 fs::create_directory_symlink(imagePath, sysLinkPath);
+                if(showInfo) cout << "Created link: " << sysLinkPath << endl;
+            }else{
+                if(showInfo) cout << "Didn't create link: " << sysLinkPath << endl;
             }
+        }else{
+            if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
         }
     }
 
@@ -115,6 +119,11 @@ double sorter::getImageAspect(string imagePath){
         double aspect = (double)w / (int)h;
         ilDeleteImages(1, &texid);
         ilClearImage();
+        //TODO: database
+        ofstream databaseStream;
+        databaseStream.open(databasePath, ios::out | ios::app);
+        databaseStream << imagePath << "," << aspect << "\n";
+        databaseStream.close();
 
         return aspect;
     }
@@ -135,4 +144,9 @@ string sorter::toString(){
     s = ss.str();
     ss.clear();
     return s;
+}
+
+bool sorter::fileExists(const char *fileName){
+    ifstream infile(fileName);
+    return infile.good();
 }
