@@ -33,7 +33,7 @@ class sorter{
         string toString();
         //the meat and the potatoes of functions
         vector<string> findImages(bool showInfo = false); //Note: setting this to true signifigantly slows it down....
-        vector<string> loadImageDatabase(string databasePath = "Database.csv");
+        vector<string> loadImageDatabase();
         void aspectSort(bool showInfo = false);
     private:
         string searchingPath; //default searching path
@@ -42,6 +42,7 @@ class sorter{
         double maxAspectRatio; //Default maximum aspect ratio
         vector<string> imagePaths;
         int totalImagePaths = 0;
+        string databasePath = "d.csv";
         vector<string> imageDatabase;
         double getImageAspect(string imagePath);
 };

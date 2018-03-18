@@ -50,7 +50,7 @@ vector<string> sorter::findImages(bool showInfo){
     return imagePaths;
 }
 
-vector<string> sorter::loadImageDatabase(string databasePath){
+vector<string> sorter::loadImageDatabase(){
     ifstream databaseStream;
     databaseStream.open(databasePath, ifstream::in);
     string entry = "";
@@ -70,6 +70,14 @@ void sorter::aspectSort(bool showInfo){
         //check to make sure theres even a point
         if(minAspectRatio > maxAspectRatio) cout << "Min aspect was bigger then max ascpect?";
         double imageAspect = getImageAspect(imagePath);
+        if(imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio){
+            string imageName = basename((char*)imagePath.c_str());
+            string sysLinkPath = outputPath + imageName;
+            ifstream infile(sysLinkPath); //check if it exists
+            if(!infile.good()){
+                fs::create_directory_symlink(imagePath, sysLinkPath);
+            }
+        }
     }
 
 }
@@ -89,6 +97,28 @@ double sorter::getImageAspect(string imagePath){
             return savedAspect;
         }
     }
+    //we didn't have the value in the database so we need to fetch it using devIL
+    //This could be done by looking at the specs for each image type and reading
+    //in the bytes but thats a lot of work, lets not reinvent the wheel...
+    ilInit();
+    ILuint texid;
+    ilGenImages(1, &texid);
+    ilBindImage(texid);
+    const ILstring pathCharArr = imagePath.c_str();
+    bool success = ilLoadImage(pathCharArr);
+    if(success){
+        ILuint Width, Height;
+        Width = ilGetInteger(IL_IMAGE_WIDTH);
+        Height = ilGetInteger(IL_IMAGE_HEIGHT);
+        unsigned int h = Height;
+        unsigned int w = Width;
+        double aspect = (double)w / (int)h;
+        ilDeleteImages(1, &texid);
+        ilClearImage();
+
+        return aspect;
+    }
+    return -1;
 }
 
 string sorter::toString(){
