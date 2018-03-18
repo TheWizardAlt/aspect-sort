@@ -16,9 +16,9 @@ class sorter{
     public:
         //constructors!
         sorter();
-        sorter(string folderPath);
+        sorter(string folderPath, string outPath);
         sorter(double minAR, double maxAR);
-        sorter(string folderPath, double minAR, double maxAR);
+        sorter(string folderPath, double minAR, double maxAR, string output);
         //gets and sets!
         void setSearchPath(string path);
         string getSearchPath();
@@ -38,12 +38,12 @@ class sorter{
         void aspectSort(bool showInfo = false);
     private:
         string searchingPath; //default searching path
-        string outputPath = "./sort/"; //TODO: properly impliment this!
+        stringstream outputPath; //TODO: properly impliment this!
         double minAspectRatio; //Default minimum aspect ratio
         double maxAspectRatio; //Default maximum aspect ratio
         vector<string> imagePaths;
         int totalImagePaths = 0;
-        string databasePath = "d.csv";
+        string databasePath = "Database.csv";
         vector<string> imageDatabase;
         double getImageAspect(string imagePath);
         int sysLinksCreated = 0;
