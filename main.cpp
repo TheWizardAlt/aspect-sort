@@ -6,6 +6,7 @@ void print(string s);
 
 int main(){
     //TODO: functional main (all code below is temporary/testing)
+    cout << "Search path..." << endl;
     sorter *s = new sorter();
 
     string inputPath = "";

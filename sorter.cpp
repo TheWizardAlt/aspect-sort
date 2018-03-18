@@ -20,7 +20,7 @@ double sorter::getMaxAspectRatio(){ return maxAspectRatio; }
 int sorter::getTotalImagePaths(){ return totalImagePaths; }
 
 vector<string> sorter::findImages(bool showInfo){
-    //clear vector of previous runs (just in case)
+    //clear of previous runs (just in case)
     imagePaths.clear();
     totalImagePaths = 0;
     //search directories recursively
