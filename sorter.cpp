@@ -64,6 +64,7 @@ vector<string> sorter::loadImageDatabase(){
 }
 
 void sorter::aspectSort(bool showInfo){
+    loadImageDatabase();
     //begin by sorting both vectors so it is easier to read from them
     sort(imageDatabase.begin(), imageDatabase.end());
     sort(imagePaths.begin(),imagePaths.end());
