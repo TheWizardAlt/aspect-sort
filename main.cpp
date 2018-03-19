@@ -8,23 +8,7 @@ sorter *newSorterFromString(string s);
 vector<string> parseCSVSetting(string setting);
 
 int main(){
-    //TODO: functional main (all code below is temporary/testing)
-    sorter *s = new sorter();
-
-    s = new sorter("./", 1, 2, "./sort/");
-
-    s->findImages();
-    s->aspectSort();
-    cout << s->toString();
-
-    cout << "CONVERT TO CSV AND RE INITIALIZE" << string(3, '\n');
-
-    s = newSorterFromString(s->toCSV());
-
-    s->findImages();
-    s->aspectSort();
-    cout << s->toString();
-
+    
     return 0;
 }
 
