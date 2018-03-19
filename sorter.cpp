@@ -109,7 +109,7 @@ void sorter::aspectSort(bool showInfo){
         }
         //TODO: fix this garbage
         progressCount++;
-        bool showProgress = false;
+        bool showProgress = true;
         double progress = 0.0;
         if(showProgress){
             updater++;

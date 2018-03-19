@@ -22,12 +22,36 @@ int main(){
             string oldRun = "";
             while(getline(setStream,oldRun)){
                 sorter *s = newSorterFromString(oldRun);
-                s->findImages();
-                s->aspectSort();
+                s->doWork();
                 msg(s->toString());
+            }
+            msg("Quit?");
+            if(getInput()){
+                //TODO quit
             }
         }
     }
+    setStream.close();
+
+    msg("Path to search");
+    string searchPath, outPath;
+    getline(cin, searchPath);
+    msg("Path to sort to");
+    getline(cin, outPath);
+    msg("Minimum aspect ratio");
+    double minAR, maxAR;
+    cin >> minAR;
+    msg("Maximum aspect ratio");
+    cin >> maxAR;
+    sorter *s = new sorter(searchPath, minAR, maxAR, outPath);
+    msg("Save for future runs?");
+    if(getInput()){
+        ofstream saveStream;
+        saveStream.open("oldRuns.csv",ios_base::app);
+        saveStream << s->toCSV();
+    }
+    s->doWork();
+
     return 0;
 }
 
