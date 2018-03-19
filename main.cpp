@@ -2,14 +2,46 @@
 #include "sorter.h"
 #include <string>
 #include <vector>
+#include<experimental/filesystem>
 using namespace std;
+namespace fs = std::experimental::filesystem;
+
 
 sorter *newSorterFromString(string s);
 vector<string> parseCSVSetting(string setting);
+bool getInput();
+void msg(string s);
 
 int main(){
-    
+    msg("---Aspect Sorting---");
+    ifstream setStream;
+    setStream.open("oldRuns.csv", ifstream::in);
+    if(!setStream.fail()){
+        msg("Would you like to re-run previous runs?");
+        if(getInput()){
+            string oldRun = "";
+            while(getline(setStream,oldRun)){
+                sorter *s = newSorterFromString(oldRun);
+                s->findImages();
+                s->aspectSort();
+                msg(s->toString());
+            }
+        }
+    }
     return 0;
+}
+
+void msg(string s){
+    cout << s << endl;
+}
+
+bool getInput(){
+    cout << "y/n:     ";
+    string response = "n";
+    getline(cin,response);
+    if(response == "Y" || response == "y")
+        return true;
+    return false;
 }
 
 sorter *newSorterFromString(string s){
