@@ -78,6 +78,8 @@ void sorter::aspectSort(bool showInfo){
     int oldBar = 0;
     int updateCount = 0;
     int updater = -1;
+
+    stringstream opbkp(outputPath.str());
     outputPath << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
     for(string imagePath : imagePaths){
         //check to make sure theres even a point
@@ -135,6 +137,9 @@ void sorter::aspectSort(bool showInfo){
             }
         }
     }
+    outputPath.str("");
+    outputPath.clear();
+    outputPath << opbkp.str();
 
 }
 
