@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-void newSorterFromString(sorter *curs, string s);
+sorter *newSorterFromString(string s);
 vector<string> parseCSVSetting(string setting);
 
 int main(){
@@ -19,7 +19,7 @@ int main(){
 
     cout << "CONVERT TO CSV AND RE INITIALIZE" << string(3, '\n');
 
-    newSorterFromString(s, s->toCSV());
+    s = newSorterFromString(s->toCSV());
 
     s->findImages();
     s->aspectSort();
@@ -28,7 +28,8 @@ int main(){
     return 0;
 }
 
-void newSorterFromString(sorter *curs, string s){
+sorter *newSorterFromString(string s){
+    sorter *newSorter;
     vector<string> csv = parseCSVSetting(s);
 
     double minAR, maxAR;
@@ -43,7 +44,9 @@ void newSorterFromString(sorter *curs, string s){
     ss << csv[2];
     ss >> maxAR;
 
-    curs = new sorter(searchPath, minAR, maxAR, outputPath);
+    newSorter = new sorter(searchPath, minAR, maxAR, outputPath);
+
+    return newSorter;
 }
 
 vector<string> parseCSVSetting(string setting){
