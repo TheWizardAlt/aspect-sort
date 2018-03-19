@@ -4,7 +4,9 @@
 #include <vector>
 using namespace std;
 
-vector<string> parseCommas(string setting);
+void newSorterFromString(sorter *curs, string s);
+vector<string> parseCSVSetting(string setting);
+
 int main(){
     //TODO: functional main (all code below is temporary/testing)
     sorter *s = new sorter();
@@ -15,24 +17,9 @@ int main(){
     s->aspectSort();
     cout << s->toString();
 
-    vector<string> v = parseCommas(s->toCSV());
-    for(string s : v)
-        cout << s << endl;
+    cout << "CONVERT TO CSV AND RE INITIALIZE" << string(3, '\n');
 
-    s = new sorter();
-    s->setSearchPath(v[0]);
-
-    stringstream ss(v[1]);
-    double temp;
-    ss >> temp;
-    s->setMinAR(temp);
-
-    temp = 0;
-    ss.clear();
-    ss << v[2];
-    ss >> temp;
-    s->setMaxAR(temp);
-    s->setOutputPath(v[3]);
+    newSorterFromString(s, s->toCSV());
 
     s->findImages();
     s->aspectSort();
@@ -41,7 +28,25 @@ int main(){
     return 0;
 }
 
-vector<string> parseCommas(string setting){
+void newSorterFromString(sorter *curs, string s){
+    vector<string> csv = parseCSVSetting(s);
+
+    double minAR, maxAR;
+    string searchPath = csv[0], outputPath = csv[3];
+
+    stringstream ss;
+    ss << csv[1];
+    ss >> minAR;
+
+    ss.str("");
+    ss.clear();
+    ss << csv[2];
+    ss >> maxAR;
+
+    curs = new sorter(searchPath, minAR, maxAR, outputPath);
+}
+
+vector<string> parseCSVSetting(string setting){
     vector<string> settings;
     for(int i = 0; i < 4; i++){
         string s = setting.substr(0,setting.find(","));
