@@ -60,11 +60,12 @@ vector<string> sorter::loadImageDatabase(){
         while(getline(databaseStream, entry))
             imageDatabase.push_back(entry);
     databaseStream.close();
+    cout<<imageDatabase.size();
     return imageDatabase;
 }
 
 void sorter::aspectSort(bool showInfo){
-    loadImageDatabase();
+    loadImageDatabase(); //load the images
     //begin by sorting both vectors so it is easier to read from them
     sort(imageDatabase.begin(), imageDatabase.end());
     sort(imagePaths.begin(),imagePaths.end());
@@ -92,9 +93,12 @@ void sorter::aspectSort(bool showInfo){
             string sysLinkPath = outputPath.str() + imageName;
             bool fileExist = fs::exists(sysLinkPath);
             if(!fileExist){
-                fs::create_directory_symlink(imagePath, sysLinkPath);
-                if(showInfo) cout << "Created link: " << sysLinkPath << endl;
-                sysLinksCreated++;
+                try{
+                    fs::create_directory_symlink(imagePath, sysLinkPath);
+                    if(showInfo) cout << "Created link: " << sysLinkPath << endl;
+                    sysLinksCreated++;
+                }catch(exception ex){}
+                
             }else{
                 if(showInfo) cout << "Didn't create link: " << sysLinkPath << endl;
             }
@@ -104,7 +108,7 @@ void sorter::aspectSort(bool showInfo){
         }
         //TODO: fix this garbage
         progressCount++;
-        bool showProgress = true;
+        bool showProgress = false;
         double progress = 0.0;
         if(showProgress){
             updater++;

@@ -13,7 +13,6 @@ int main(){
     cout << s->toString();
     s->findImages();
     cout << s->toString();
-    s->loadImageDatabase();
     s->aspectSort();
     cout << s->toString();
     return 0;
