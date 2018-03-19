@@ -14,6 +14,8 @@ namespace fs = std::experimental::filesystem;
 
 class sorter{
     public:
+        //run all the major stuff!
+        void doWork();
         //constructors!
         sorter();
         sorter(string folderPath, string outPath);

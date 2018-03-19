@@ -137,6 +137,7 @@ void sorter::aspectSort(bool showInfo){
             }
         }
     }
+    //TODO: gross.....
     outputPath.str("");
     outputPath.clear();
     outputPath << opbkp.str();
@@ -220,4 +221,9 @@ string sorter::toCSV(){
     ss << "\n";
 
     return ss.str();
+}
+
+void sorter::doWork(){
+    findImages();
+    aspectSort();
 }
