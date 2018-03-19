@@ -189,11 +189,30 @@ string sorter::toString(){
     ss << "Current searching path: " << getSearchPath() << endl;
     ss << "Current output folder: " << getOutputPath() << endl;
     ss << "Current minAR: " << getMinAspectRatio() << ":1" << endl;
-    ss << "Current mazAR: " << getMaxAspectRatio() << ":1" << endl;
+    ss << "Current maxAR: " << getMaxAspectRatio() << ":1" << endl;
     ss << "Total Image Paths: " << getTotalImagePaths() << endl;
     ss << "Sys links creates: " << getTotalCreated() << endl;
+    ss << "Settings to CSV: " << toCSV() << endl;
     ss << endl;
     s = ss.str();
     ss.clear();
     return s;
+}
+
+string sorter::toCSV(){
+    stringstream ss;
+    ss << getSearchPath();
+
+    ss << ",";
+    ss << getMinAspectRatio();
+
+    ss << ",";
+    ss << getMaxAspectRatio();
+
+    ss << ",";
+    ss << getOutputPath();
+
+    ss << "\n";
+
+    return ss.str();
 }

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "sorter.h"
+#include <string>
 using namespace std;
 
-void print(string s);
-
+vector<string> parseCommas(string setting);
 int main(){
     //TODO: functional main (all code below is temporary/testing)
     sorter *s = new sorter();
@@ -15,5 +15,14 @@ int main(){
     cout << s->toString();
     s->aspectSort();
     cout << s->toString();
+
+    vector<string> v = parseCommas(s->toCSV());
+
     return 0;
+}
+
+vector<string> parseCommas(string setting){
+    vector<string> settings;
+    //string setting1 = setting.find(",");
+    cout << setting.substr(0, setting.find(","));
 }

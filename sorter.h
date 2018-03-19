@@ -32,6 +32,8 @@ class sorter{
         int getTotalCreated();
         //to string! prints all the infos in a nice format
         string toString();
+        //to csv! organizes in order you'd expect
+        string toCSV();
         //the meat and the potatoes of functions
         vector<string> findImages(bool showInfo = false); //Note: setting this to true signifigantly slows it down....
         vector<string> loadImageDatabase();
