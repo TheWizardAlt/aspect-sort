@@ -58,9 +58,9 @@ vector<string> sorter::loadImageDatabase(){
     string entry = "";
     if(!databaseStream.fail())
         while(getline(databaseStream, entry))
-            imageDatabase.push_back(entry);
+            if(entry.find(searchingPath) != -1) imageDatabase.push_back(entry);
     databaseStream.close();
-    cout<<imageDatabase.size();
+    cout<<"Data base size: " << imageDatabase.size() << endl;
     return imageDatabase;
 }
 
