@@ -41,9 +41,12 @@ int main(){
     msg("Minimum aspect ratio");
     double minAR, maxAR;
     cin >> minAR;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     msg("Maximum aspect ratio");
     cin >> maxAR;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     sorter *s = new sorter(searchPath, minAR, maxAR, outPath);
+
     msg("Save for future runs?");
     if(getInput()){
         ofstream saveStream;
