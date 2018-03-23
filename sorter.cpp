@@ -57,8 +57,14 @@ vector<string> sorter::loadImageDatabase(){
     databaseStream.open(databasePath, ifstream::in);
     string entry = "";
     if(!databaseStream.fail())
-        while(getline(databaseStream, entry))
-            if(entry.find(searchingPath) != -1) imageDatabase.push_back(entry);
+        while(getline(databaseStream, entry)){
+            //TODO: This makes it slower, hrmmmmmmmm....
+            //double imageAspect = getAspectFromCSV(entry);
+            bool aspectCheck = true; //imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio;
+            if(aspectCheck && entry.find(searchingPath) != -1) 
+                imageDatabase.push_back(entry);
+        }
+    cout << imageDatabase.size();
     databaseStream.close();
     return imageDatabase;
 }
@@ -68,7 +74,6 @@ void sorter::aspectSort(bool showInfo){
     //begin by sorting both vectors so it is easier to read from them
     sort(imageDatabase.begin(), imageDatabase.end());
     sort(imagePaths.begin(),imagePaths.end());
-    //TODO: remove entries that are not in the imagepaths from the imagedatabase
 
     //load bar stuff TODO: refine this a bit :p
     int newCount = 0;
@@ -141,10 +146,7 @@ void sorter::aspectSort(bool showInfo){
                 cout << "] ";
                 cout << (int)(progress * 100) << "% " << endl;
                 updateCount++;
-                //time(&end);
-                //double diff = difftime(end,begin);
-                //cout << "List size: " << oldData.size() << endl;
-                cout << "File stat: " << progressCount << "/" << outOf << /*" Time Ellapsed: " << diff << "s" <<*/ endl << endl;
+                cout << "File stat: " << progressCount << "/" << outOf << endl << endl;
                 
             }
         }
@@ -195,7 +197,6 @@ double sorter::getImageAspect(string imagePath){
         double aspect = (double)w / (int)h;
         ilDeleteImages(1, &texid);
         ilClearImage();
-        //TODO: database
         ofstream databaseStream;
         databaseStream.open(databasePath, ios::out | ios::app);
         databaseStream << imagePath << "," << aspect << "\n";
