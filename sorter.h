@@ -42,7 +42,7 @@ class sorter{
         void aspectSort(bool showInfo = false);
     private:
         string searchingPath = "./"; //default searching path
-        stringstream outputPath; //TODO: properly impliment this!
+        stringstream outputPath = "./sort/"; //TODO: properly impliment this!
         double minAspectRatio = 1.3; //Default minimum aspect ratio
         double maxAspectRatio = 1.8; //Default maximum aspect ratio
         vector<string> imagePaths;
