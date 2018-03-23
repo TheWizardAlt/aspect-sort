@@ -95,8 +95,8 @@ void sorter::aspectSort(bool showInfo){
             //We can programically create a long-named system link but most operating
             //systems hate this. So lets shrink the name if it's too big
             string ext = imageName.substr(imageName.length() - 4, imageName.length()-1);
-                if(imageName.length() > 160)
-                    imageName = imageName.substr(0,160) + ext;
+            if(imageName.length() > 160)
+                imageName = imageName.substr(0,160) + ext;
             //get the SYSTEM LINK path
             string sysLinkPath = outputPath.str() + imageName;
             //check for the SYSTEM LINK
@@ -156,17 +156,27 @@ void sorter::aspectSort(bool showInfo){
 
 }
 
+double sorter::getAspectFromCSV(string csv){
+    double workingAspect = 0.0;
+    csv = csv.substr(csv.find(',')+1);
+    stringstream ss(csv);
+    ss >> workingAspect;
+    cout << workingAspect << endl;
+    return workingAspect;
+}
+
 double sorter::getImageAspect(string imagePath){
     //quickly check the database to see if we already know the aspect
     //there can DEFINETLY be some optimizations to this...
     for(int i = 0; i < imageDatabase.size(); i++){
         string currentImagePath = imageDatabase[i];
         if(currentImagePath.find(imagePath,0) != -1){
-            double savedAspect;
+            //double savedAspect;
             //the values are stored like "path,value"
-            string s = currentImagePath.substr(currentImagePath.find(',')+1);
-            stringstream ss(s); //convert the number to a string stream
-            ss >> savedAspect; //convert the string stream to a double
+            //string s = currentImagePath.substr(currentImagePath.find(',')+1);
+            //stringstream ss(s); //convert the number to a string stream
+            //ss >> savedAspect; //convert the string stream to a double
+            double savedAspect = getAspectFromCSV(currentImagePath);
             imageDatabase.erase(imageDatabase.begin()+i); //remove current item to make future searches quicker
             return savedAspect;
         }

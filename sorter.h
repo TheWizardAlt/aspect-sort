@@ -50,5 +50,6 @@ class sorter{
         string databasePath = "Database.csv";
         vector<string> imageDatabase;
         double getImageAspect(string imagePath);
+        double getAspectFromCSV(string csv);
         int sysLinksCreated = 0;
 };
