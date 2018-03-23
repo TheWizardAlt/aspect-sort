@@ -85,7 +85,7 @@ void sorter::aspectSort(bool showInfo){
     int updater = -1;
 
     stringstream opbkp(outputPath);
-    opbkp << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
+    opbkp << outputPath << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
     for(string imagePath : imagePaths){
         //check to make sure theres even a point
         if(minAspectRatio > maxAspectRatio){ cout << "Min aspect was bigger then max ascpect?" << endl; break;}
