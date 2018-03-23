@@ -157,6 +157,7 @@ void sorter::aspectSort(bool showInfo){
 }
 
 double sorter::getAspectFromCSV(string csv){
+     //the values are stored like "path,value"
     double workingAspect = 0.0;
     csv = csv.substr(csv.find(',')+1);
     stringstream ss(csv);
@@ -171,11 +172,6 @@ double sorter::getImageAspect(string imagePath){
     for(int i = 0; i < imageDatabase.size(); i++){
         string currentImagePath = imageDatabase[i];
         if(currentImagePath.find(imagePath,0) != -1){
-            //double savedAspect;
-            //the values are stored like "path,value"
-            //string s = currentImagePath.substr(currentImagePath.find(',')+1);
-            //stringstream ss(s); //convert the number to a string stream
-            //ss >> savedAspect; //convert the string stream to a double
             double savedAspect = getAspectFromCSV(currentImagePath);
             imageDatabase.erase(imageDatabase.begin()+i); //remove current item to make future searches quicker
             return savedAspect;
