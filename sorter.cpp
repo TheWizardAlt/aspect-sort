@@ -12,8 +12,8 @@ sorter::sorter(string folderPath, double minAR, double maxAR, string outPath){
 
 void sorter::setSearchPath(string path){ searchingPath = path; }
 string sorter::getSearchPath(){ return searchingPath; }
-void sorter::setOutputPath(string path){ outputPath << path; }
-string sorter::getOutputPath(){ return outputPath.str(); }
+void sorter::setOutputPath(string path){ outputPath = path; }
+string sorter::getOutputPath(){ return outputPath; }
 void sorter::setMinAR(double minAR){ minAspectRatio = minAR; }
 double sorter::getMinAspectRatio(){ return minAspectRatio; }
 void sorter::setMaxAR(double maxAR){ maxAspectRatio = maxAR; }
@@ -36,7 +36,7 @@ vector<string> sorter::findImages(bool showInfo){
         vector<string> exts = {".jpg",".jpeg",".png"}; //devIL can handle many TODO: add a selection for filetypes
         for(string ext :exts){ //run through the list and take files that match
             //dont look at the output path files
-            if(curPath.find(outputPath.str()) == -1 && curPath.find(ext) != -1){
+            if(curPath.find(outputPath) == -1 && curPath.find(ext) != -1){
                 //remove the "" from the path (The path is converted to something like "/path/to/file/file.ext")
                 curPath.erase(remove(curPath.begin(),curPath.end(),'"'),curPath.end());
                 imagePaths.push_back(curPath);
@@ -84,14 +84,14 @@ void sorter::aspectSort(bool showInfo){
     int updateCount = 0;
     int updater = -1;
 
-    stringstream opbkp(outputPath.str());
-    outputPath << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
+    stringstream opbkp(outputPath);
+    opbkp << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
     for(string imagePath : imagePaths){
         //check to make sure theres even a point
         if(minAspectRatio > maxAspectRatio){ cout << "Min aspect was bigger then max ascpect?" << endl; break;}
         //create sorting directory
-        if(!fs::exists(outputPath.str()))
-            fs::create_directories(outputPath.str());
+        if(!fs::exists(opbkp.str()))
+            fs::create_directories(opbkp.str());
     
         double imageAspect = getImageAspect(imagePath);
         if(imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio){
@@ -103,7 +103,7 @@ void sorter::aspectSort(bool showInfo){
             if(imageName.length() > 160)
                 imageName = imageName.substr(0,160) + ext;
             //get the SYSTEM LINK path
-            string sysLinkPath = outputPath.str() + imageName;
+            string sysLinkPath = opbkp.str() + imageName;
             //check for the SYSTEM LINK
             bool fileExist = fs::exists(sysLinkPath);
             if(!fileExist){
@@ -151,11 +151,6 @@ void sorter::aspectSort(bool showInfo){
             }
         }
     }
-    //TODO: gross.....
-    outputPath.str("");
-    outputPath.clear();
-    outputPath << opbkp.str();
-
 }
 
 double sorter::getAspectFromCSV(string csv){
