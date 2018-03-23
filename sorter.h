@@ -41,10 +41,10 @@ class sorter{
         vector<string> loadImageDatabase();
         void aspectSort(bool showInfo = false);
     private:
-        string searchingPath; //default searching path
+        string searchingPath = "./"; //default searching path
         stringstream outputPath; //TODO: properly impliment this!
-        double minAspectRatio; //Default minimum aspect ratio
-        double maxAspectRatio; //Default maximum aspect ratio
+        double minAspectRatio = 1.3; //Default minimum aspect ratio
+        double maxAspectRatio = 1.8; //Default maximum aspect ratio
         vector<string> imagePaths;
         int totalImagePaths = 0;
         string databasePath = "Database.csv";

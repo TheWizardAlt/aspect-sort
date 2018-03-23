@@ -1,13 +1,13 @@
 #include "sorter.h"
 
 sorter::sorter():sorter("", ""){ } //NOTE you may wanna change this default path here
-sorter::sorter(string folderPath, string outPath):sorter(folderPath, 1.3, 1.8, outPath){}
+sorter::sorter(string folderPath, string outPath):sorter(folderPath, -1, -1, outPath){}
 sorter::sorter(double minAR, double maxAR):sorter("", minAR, maxAR , ""){} //NOTE you may wanna change this default path here
 sorter::sorter(string folderPath, double minAR, double maxAR, string outPath){
-    setSearchPath(folderPath);
-    setMinAR(minAR);
-    setMaxAR(maxAR);
-    setOutputPath(outPath);
+    if(folderPath != "" ) setSearchPath(folderPath);
+    if(minAR != -1) setMinAR(minAR);
+    if(maxAR != -1) setMaxAR(maxAR);
+    if(outPath != "" ) setOutputPath(outPath);
 }
 
 void sorter::setSearchPath(string path){ searchingPath = path; }
@@ -90,21 +90,33 @@ void sorter::aspectSort(bool showInfo){
     
         double imageAspect = getImageAspect(imagePath);
         if(imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio){
+            //Figure out the name of the file
             string imageName = basename((char*)imagePath.c_str());
+            //We can programically create a long-named system link but most operating
+            //systems hate this. So lets shrink the name if it's too big
+            string ext = imageName.substr(imageName.length() - 4, imageName.length()-1);
+                if(imageName.length() > 160)
+                    imageName = imageName.substr(0,160) + ext;
+            //get the SYSTEM LINK path
             string sysLinkPath = outputPath.str() + imageName;
+            //check for the SYSTEM LINK
             bool fileExist = fs::exists(sysLinkPath);
             if(!fileExist){
+                //sometimes the file exists even though we checked that....
                 try{
+                    //create the link
                     fs::create_directory_symlink(imagePath, sysLinkPath);
                     if(showInfo) cout << "Created link: " << sysLinkPath << endl;
+                    //keep track
                     sysLinksCreated++;
                 }catch(exception ex){}
-                
             }else{
+                //info for debugging, showing error with link creation
                 if(showInfo) cout << "Didn't create link: " << sysLinkPath << endl;
             }
 
         }else{
+            //A invalid aspec ratio, for debugging
             if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
         }
         //TODO: fix this garbage
