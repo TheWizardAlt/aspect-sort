@@ -159,7 +159,6 @@ double sorter::getAspectFromCSV(string csv){
     csv = csv.substr(csv.find(',')+1);
     stringstream ss(csv);
     ss >> workingAspect;
-    cout << workingAspect << endl;
     return workingAspect;
 }
 
