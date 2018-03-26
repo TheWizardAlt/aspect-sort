@@ -64,7 +64,6 @@ vector<string> sorter::loadImageDatabase(){
             if(aspectCheck && entry.find(searchingPath) != -1) 
                 imageDatabase.push_back(entry);
         }
-    cout << imageDatabase.size();
     databaseStream.close();
     return imageDatabase;
 }
