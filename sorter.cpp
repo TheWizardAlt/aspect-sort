@@ -128,7 +128,7 @@ void sorter::aspectSort(bool showInfo){
         }
         //TODO: remove some hard coding
         progressCount++;
-        int barSize = 100;
+        int barSize = 30;
         int newamnt = (double)barSize * ((double)progressCount/outOf);
         if(newamnt > oldamnt){
             oldamnt = newamnt;
