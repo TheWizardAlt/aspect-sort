@@ -23,7 +23,6 @@ int main(){
             while(getline(setStream,oldRun)){
                 sorter *s = newSorterFromString(oldRun);
                 s->doWork();
-                msg(s->toString());
             }
             msg("Quit?");
             if(getInput()){

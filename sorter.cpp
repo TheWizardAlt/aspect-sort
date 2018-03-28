@@ -59,10 +59,18 @@ vector<string> sorter::loadImageDatabase(){
     if(!databaseStream.fail())
         while(getline(databaseStream, entry)){
             //TODO: This makes it slower, hrmmmmmmmm....
-            //double imageAspect = getAspectFromCSV(entry);
-            bool aspectCheck = true; //imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio;
-            if(aspectCheck && entry.find(searchingPath) != -1) 
+            double imageAspect = getAspectFromCSV(entry);
+            bool aspectCheck =  true; //imageAspect >= minAspectRatio && imageAspect <= maxAspectRatio;
+            if(aspectCheck && entry.find(searchingPath) != -1)
                 imageDatabase.push_back(entry);
+            // else if (!aspectCheck){
+            //     for(int i = 0; i < imagePaths.size(); i++){
+            //         if(imagePaths[0] == entry){
+            //             cout << "Yeppers.";
+            //             imagePaths.erase(imageDatabase.begin()+i);
+            //         }
+            //     }
+            // }
         }
     databaseStream.close();
     return imageDatabase;
@@ -123,7 +131,7 @@ void sorter::aspectSort(bool showInfo){
             //A invalid aspec ratio, for debugging
             if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
         }
-        //TODO: fix this garbage
+        //TODO: fix this garbage 
         progressCount++;
         bool showProgress = true;
         double progress = 0.0;
