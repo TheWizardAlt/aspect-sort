@@ -82,16 +82,9 @@ void sorter::aspectSort(bool showInfo){
     sort(imageDatabase.begin(), imageDatabase.end());
     sort(imagePaths.begin(),imagePaths.end());
 
-    //load bar stuff TODO: refine this a bit :p
-    int newCount = 0;
-    int oldCount = 0;
     int progressCount = 0;
     int outOf = imagePaths.size();
     int oldamnt = -1;
-    
-    int oldBar = 0;
-    int updateCount = 0;
-    int updater = -1;
 
     stringstream opbkp(outputPath);
     opbkp << outputPath << minAspectRatio << "-" << maxAspectRatio << "/"; //This may cause problems TODO: fix
@@ -133,40 +126,14 @@ void sorter::aspectSort(bool showInfo){
             //A invalid aspec ratio, for debugging
             if(showInfo) cout << "Wrong aspect ratio: " << imageAspect << " Image: " << imagePath << endl;
         }
-        //TODO: fix this garbage 
+        //TODO: remove some hard coding
         progressCount++;
-        
-        int barSize = 30;
+        int barSize = 100;
         int newamnt = (double)barSize * ((double)progressCount/outOf);
         if(newamnt > oldamnt){
             oldamnt = newamnt;
             system("clear");
             cout << makeBar(barSize, progressCount, outOf);
-        }
-
-        bool showProgress = false;
-        double progress = 0.0;
-        if(showProgress){
-            updater++;
-            progress = ((double)progressCount / outOf);
-            int barSize = 34;
-            if(outOf < barSize)
-                barSize = outOf;
-            int newBar = progressCount / (outOf / barSize);
-            if(updater == 0 || updater > 1000 || newBar > oldBar || progress == 1){
-                updater = 1;
-                system("clear");
-                oldBar = newBar;
-                cout << "[";
-                int curBarSize = (progress * barSize);
-                cout << string(curBarSize, '.');
-                cout << string(barSize - curBarSize, ' ');
-                cout << "] ";
-                cout << (int)(progress * 100) << "% " << endl;
-                updateCount++;
-                cout << "File stat: " << progressCount << "/" << outOf << endl << endl;
-                
-            }
         }
     }
 }
@@ -187,7 +154,7 @@ string sorter::makeBar(int barSize, int progress, int total){
 }
 
 double sorter::getAspectFromCSV(string csv){
-     //the values are stored like "path,value"
+    //the values are stored like "path,value"
     double workingAspect = 0.0;
     csv = csv.substr(csv.find(',')+1);
     stringstream ss(csv);

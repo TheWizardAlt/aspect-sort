@@ -13,6 +13,7 @@ bool getInput();
 void msg(string s);
 
 int main(){
+    //TODO settings file
     msg("---Aspect Sorting---");
     ifstream setStream;
     setStream.open("oldRuns.csv", ifstream::in);
