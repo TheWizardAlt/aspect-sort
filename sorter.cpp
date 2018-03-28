@@ -87,6 +87,7 @@ void sorter::aspectSort(bool showInfo){
     int oldCount = 0;
     int progressCount = 0;
     int outOf = imagePaths.size();
+    int oldamnt = -1;
     int oldBar = 0;
     int updateCount = 0;
     int updater = -1;
@@ -133,7 +134,16 @@ void sorter::aspectSort(bool showInfo){
         }
         //TODO: fix this garbage 
         progressCount++;
-        bool showProgress = true;
+        
+        int barSize = 30;
+        int newamnt = (double)barSize * ((double)progressCount/outOf);
+        if(newamnt > oldamnt){
+            oldamnt = newamnt;
+            system("clear");
+            cout << makeBar(barSize, progressCount, outOf);
+        }
+
+        bool showProgress = false;
         double progress = 0.0;
         if(showProgress){
             updater++;
@@ -158,6 +168,21 @@ void sorter::aspectSort(bool showInfo){
             }
         }
     }
+}
+
+string sorter::makeBar(int barSize, int progress, int total){
+    stringstream returnable;
+    double currentPercent = ((double)progress/total);
+    int currentFill = barSize * currentPercent;
+    int remainingFill = barSize - currentFill;
+
+    returnable << "Current Path: " << searchingPath << endl;
+    returnable << "With tolerence of: " << minAspectRatio << " < Aspect Ratio < " << maxAspectRatio << endl;
+    returnable << "To " << outputPath << endl;
+    returnable << "[" << string(currentFill, '.') << string(remainingFill, ' ') << "] " << (int)(currentPercent * 100) << "%" << endl;
+    returnable << "Proccessed " << progress << " out of " << total << endl;
+
+    return returnable.str();
 }
 
 double sorter::getAspectFromCSV(string csv){

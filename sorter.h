@@ -52,4 +52,5 @@ class sorter{
         double getImageAspect(string imagePath);
         double getAspectFromCSV(string csv);
         int sysLinksCreated = 0;
+        string makeBar(int barSize, int progress, int total); //returns progressbar
 };
