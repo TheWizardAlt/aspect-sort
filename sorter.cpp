@@ -88,6 +88,7 @@ void sorter::aspectSort(bool showInfo){
     int progressCount = 0;
     int outOf = imagePaths.size();
     int oldamnt = -1;
+    
     int oldBar = 0;
     int updateCount = 0;
     int updater = -1;
